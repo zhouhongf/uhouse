@@ -1,0 +1,226 @@
+<ion-header class="ion-no-border">
+  <mat-toolbar color="primary" style="height: 80px; padding: 28px 0 0 0;">
+    <div class="pl-2">房产评估</div>
+    <button *ngIf="showFormSimple || showFormPro" mat-button class="fa fa-mail-reply ml-auto" (click)="goBack()"></button>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+  <ion-list [hidden]="showFormSimple || showFormPro">
+    <ion-item detail button (click)="openFormSimple()">
+      <ion-label>简单评估</ion-label>
+    </ion-item>
+    <ion-item detail button (click)="openFormPro()">
+      <ion-label>专业评估</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-card *ngIf="showFormSimple" color="light">
+    <form [formGroup]="theFormSimple" novalidate>
+      <ion-card-header>
+        <ion-card-title class="text-center text-primary">简单评估</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="row">
+        <mat-form-field class="col-sm-12">
+          <input matInput type="text" placeholder="输入小区名称" formControlName="houseNameSimple" [matAutocomplete]="auto">
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+        </mat-autocomplete>
+
+        <mat-form-field class="col-sm-6">
+          <input matInput type="text" placeholder="楼栋" formControlName="buildingNumberSimple">
+        </mat-form-field>
+        <mat-form-field class="col-sm-6">
+          <input matInput type="text" placeholder="室号" formControlName="roomNumberSimple">
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-6">
+          <input matInput type="number" placeholder="楼层总数" formControlName="floorTotalSimple">
+        </mat-form-field>
+        <mat-form-field class="col-sm-6">
+          <input matInput type="number" placeholder="所在楼层" formControlName="floorTargetSimple">
+        </mat-form-field>
+
+        <mat-form-field class="col-sm-12">
+          <input matInput type="number" placeholder="房产面积" formControlName="houseSizeSimple">
+          <span matSuffix>平米</span>
+        </mat-form-field>
+      </ion-card-content>
+      <br>
+      <button mat-raised-button color="warn" type="button" (click)="assessHouseSimple()" [disabled]="!theFormSimple.valid" style="font-size: large; width: 100%; height: 40px;">开始评估</button>
+    </form>
+  </ion-card>
+
+  <ion-card *ngIf="showFormPro" color="light">
+    <form [formGroup]="theFormPro" novalidate>
+      <ion-card-header>
+        <ion-card-title class="text-center text-primary">专业评估</ion-card-title>
+      </ion-card-header>
+      <ion-card-content class="row">
+        <mat-form-field class="col-md-12">
+          <input matInput type="text" placeholder="输入小区名称" formControlName="name" [matAutocomplete]="autoPro">
+        </mat-form-field>
+        <mat-autocomplete #autoPro="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+        </mat-autocomplete>
+
+        <mat-form-field class="col-md-6">
+          <mat-select placeholder="房产类型" formControlName="houseType">
+            <mat-option *ngFor="let data of houseTypeData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <mat-select placeholder="物业类型" formControlName="houseServiceType">
+            <mat-option *ngFor="let data of houseServiceTypeData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <mat-select placeholder="土地权利类型" formControlName="landTypeOfficial">
+            <mat-option *ngFor="let data of landTypeOfficialData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <mat-select placeholder="土地规划用途" formControlName="landUsageOfficial">
+            <mat-option *ngFor="let data of landUsageOfficialData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field class="col-md-6">
+          <mat-select placeholder="房屋权利类型" formControlName="houseTypeOfficial">
+            <mat-option *ngFor="let data of houseTypeOfficialData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <mat-select placeholder="房屋规划用途" formControlName="houseUsageOfficial">
+            <mat-option *ngFor="let data of houseUsageOfficialData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="幢" formControlName="buildingNumber">
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="室号" formControlName="roomNumber">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="总楼层" formControlName="floorTotal">
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="所在楼层" formControlName="floorTarget">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12">
+          <input matInput type="number" placeholder="层高" formControlName="floorHight">
+          <span matSuffix>米</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="房产面积" formControlName="houseSize">
+          <span matSuffix>平米</span>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="土地面积" formControlName="landSize">
+          <span matSuffix>平米</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="客厅" formControlName="livingroomNumber">
+          <span matSuffix>个</span>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="阳台" formControlName="balconyNumber">
+          <span matSuffix>个</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="卧室" formControlName="bedroomNumber">
+          <span matSuffix>个</span>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="其中朝南卧室" formControlName="bedroomSouthNumber">
+          <span matSuffix>个</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12">
+          <input matInput type="number" placeholder="卫生间" formControlName="washingroomNumber">
+          <span matSuffix>个</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="阁楼" formControlName="loftSize">
+          <span matSuffix>平米</span>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="地下室" formControlName="basementSize">
+          <span matSuffix>平米</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12">
+          <input matInput type="number" placeholder="电梯" formControlName="elevatorNumber">
+          <span matSuffix>个</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="汽车位" formControlName="parkingNumber">
+          <span matSuffix>个</span>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="总面积" formControlName="parkingSize">
+          <span matSuffix>平米</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12">
+          <input matInput type="number" placeholder="自行车库" formControlName="bikeSpaceSize">
+          <span matSuffix>平米</span>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <mat-select placeholder="共有情况" formControlName="ownerType">
+            <mat-option *ngFor="let data of ownerTypeData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="主要所有人" formControlName="ownerName">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12">
+          <mat-select placeholder="评估目的" formControlName="evaluatePurpose">
+            <mat-option *ngFor="let data of evaluatePurposeData" [value]="data['value']">{{data['value']}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-12">
+          <input matInput type="text" placeholder="不动产权证号" formControlName="realEstateLicenseNumber">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="房屋所有权证号" formControlName="houseLicenseNumber">
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="土地使用证号" formControlName="landLicenseNumber">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="权利人" formControlName="rightHolder">
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="委托人" formControlName="applier">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-6">
+          <input matInput type="text" placeholder="联系人" formControlName="contactor">
+        </mat-form-field>
+        <mat-form-field class="col-md-6">
+          <input matInput type="number" placeholder="电话" formControlName="phone">
+        </mat-form-field>
+      </ion-card-content>
+      <br>
+      <button mat-raised-button color="warn" type="button" (click)="assessHousePro()" [disabled]="!theFormPro.valid" style="font-size: large; width: 100%; height: 40px;">开始评估</button>
+    </form>
+  </ion-card>
+
+</ion-content>

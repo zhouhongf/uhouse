@@ -1,0 +1,71 @@
+<ion-header class="ion-no-border">
+  <mat-toolbar color="primary" style="height: 80px; padding: 28px 0 0 0;">
+    <div class="pl-2">房产分析</div>
+  </mat-toolbar>
+</ion-header>
+
+<ion-content color="medium">
+  <div *ngIf="!showMore" class="pb-5">
+    <ion-card color="light">
+      <ion-card-content class="row">
+        <div class="col-sm-2 text-center">
+          <button mat-button type="button" (click)="removeCurrentPlacePrice()" style="font-size: large; font-weight: bolder; color: black">{{currentCity}}</button>
+        </div>
+        <div class="col-sm-10">
+          <button mat-button type="button" class="text-dark" *ngFor="let county of housePriceCountiesData" (click)="getCurrentPlacePrice(county)">{{county['name']}}</button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card color="light">
+      <div class="row py-5">
+        <div class="col-6 text-center">
+          <div class="county-price" (click)="goToCounty()">
+            <h5>{{currentPlaceName ? currentPlaceName : currentCity}}</h5>
+            <div style="cursor: pointer">{{currentPlaceName === currentCity ? null : '查看区县详情'}}</div>
+          </div>
+        </div>
+        <div class="col-6 text-center">
+          <h5 class="text-info">{{currentPlacePrice ? currentPlacePrice : currentCityPrice}}元/m²</h5>
+          <div>{{lastMonth}}月份房产均价</div>
+        </div>
+      </div>
+    </ion-card>
+
+    <ion-card color="light">
+      <ion-card-content class="row py-5">
+        <div class="col-md-6">
+          <div class="text-danger text-center py-4" style="font-size: large;">最高房价排名</div>
+          <div class="d-flex justify-content-between" *ngFor="let data of firstFives">
+            <div>{{data['name']}}</div>
+            <div class="text-danger">{{data['price']}}元/m²</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-success text-center py-4" style="font-size: large;">最低房价排名</div>
+          <div class="d-flex justify-content-between" *ngFor="let data of lastFives">
+            <div>{{data['name']}}</div>
+            <div class="text-success">{{data['price']}}元/m²</div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button class="ion-padding" color="primary" expand="block" (click)="showMore = true">更多</ion-button>
+  </div>
+
+  <div *ngIf="showMore" class="pb-5">
+    <ion-card color="light" class="ion-padding">
+      <app-city-links></app-city-links>
+    </ion-card>
+    <ion-button class="ion-padding" expand="block" disabled>确定</ion-button>
+    <ion-button class="ion-padding" color="secondary" expand="block" (click)="showMore = false">返回</ion-button>
+  </div>
+
+
+</ion-content>
+
+
+
+
+

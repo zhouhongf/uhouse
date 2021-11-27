@@ -1,0 +1,166 @@
+<ion-header class="ion-no-border">
+  <mat-toolbar #headerHome class="position-absolute sticky-top" style="height: 80px; padding: 28px 0 0 0; opacity: 0"></mat-toolbar>
+</ion-header>
+
+<ion-content [scrollEvents]="true" (ionScroll)="scrollEvent($event)" color="medium">
+  <ion-slides scrollbar [options]="slideOpts">
+    <ion-slide *ngFor="let slide of slides" [ngStyle]="{'background-image': slide.image, 'background-size': 'cover', 'min-height': '600px'}">
+      <div [innerHTML]="slide.title" [ngStyle]="{'color': 'white', 'font-size': '20px'}"></div>
+    </ion-slide>
+  </ion-slides>
+  <div class="bg-secondary">
+    <button mat-button class="small text-light" style="width: 100%;">
+      <span>【广告位】快报、热点、通知等资讯</span>
+    </button>
+  </div>
+
+  <div class="bg-light py-4">
+    <div class="text-center text-dark py-2">——&nbsp;&nbsp;苏州房价行情&nbsp;&nbsp;——</div>
+    <img [src]="housePriceMap" class="img img-fluid" style="cursor: pointer; width: 100%; height: 100%;" (click)="goToHouseHome()">
+  </div>
+
+  <div class="row my-2 bg-light">
+    <div class="col-6 p-0" style="border-right: 1px solid lightgray">
+      <button mat-button class="px-4 py-2" style="width: 100%;" (click)="goToHouseHome()">
+        <div class="text-primary d-flex justify-content-between">
+          <div><span class="fa fa-building-o"></span>&nbsp;&nbsp;热点楼盘</div>
+          <div><span class="fa fa-angle-double-right"></span></div>
+        </div>
+      </button>
+      <div class="pl-4 pr-1 small">
+        <div class="text-truncate text-dark">
+          <span>绿地太湖城</span>
+        </div>
+        <div class="text-right text-primary">
+          <span>25685元/m²</span>
+        </div>
+      </div>
+      <div class="pl-4 pr-1 small">
+        <div class="text-truncate text-dark">
+          <span>苏州湾景苑</span>
+        </div>
+        <div class="text-right text-primary">
+          <span>24888元/m²</span>
+        </div>
+      </div>
+      <div class="pl-4 pr-1 small">
+        <div class="text-truncate text-dark">
+          <span>华润凯旋门</span>
+        </div>
+        <div class="text-right text-primary">
+          <span>21136元/m²</span>
+        </div>
+      </div>
+      <div class="pl-4 pr-1 small">
+        <div class="text-truncate text-dark">
+          <span>奥林清华御园</span>
+        </div>
+        <div class="text-right text-primary">
+          <span>21012元/m²</span>
+        </div>
+      </div>
+      <div class="pl-4 pr-1 small">
+        <div class="text-truncate text-dark">
+          <span>金科廊桥水岸</span>
+        </div>
+        <div class="text-right text-primary">
+          <span>20985元/m²</span>
+        </div>
+      </div>
+      <br>
+    </div>
+    <div class="col-6 p-0" style="border-left: 1px solid lightgray">
+      <button mat-button class="px-4 py-2" style="width: 100%;" (click)="goToHouseHome()">
+        <div class="d-flex justify-content-between" style="color: goldenrod">
+          <div><span class="fa fa-star"></span>&nbsp;&nbsp;优选楼盘</div>
+          <div><span class="fa fa-angle-double-right"></span></div>
+        </div>
+      </button>
+      <div class="pl-2 pr-4 small">
+        <div class="text-truncate text-dark">
+          <span>【广告位】楼盘一</span>
+        </div>
+        <div class="text-right text-primary">
+          <span style="color: goldenrod">XXXXX元/m²</span>
+        </div>
+      </div>
+      <div class="pl-2 pr-4 small">
+        <div class="text-truncate text-dark">
+          <span>【广告位】楼盘二</span>
+        </div>
+        <div class="text-right text-primary">
+          <span style="color: goldenrod">XXXXX元/m²</span>
+        </div>
+      </div>
+      <div class="pl-2 pr-4 small">
+        <div class="text-truncate text-dark">
+          <span>【广告位】楼盘三</span>
+        </div>
+        <div class="text-right text-primary">
+          <span style="color: goldenrod">XXXXX元/m²</span>
+        </div>
+      </div>
+      <div class="pl-2 pr-4 small">
+        <div class="text-truncate text-dark">
+          <span>【广告位】楼盘四</span>
+        </div>
+        <div class="text-right text-primary">
+          <span style="color: goldenrod">XXXXX元/m²</span>
+        </div>
+      </div>
+      <div class="pl-2 pr-4 small">
+        <div class="text-truncate text-dark">
+          <span>【广告位】楼盘五</span>
+        </div>
+        <div class="text-right text-primary">
+          <span style="color: goldenrod">XXXXX元/m²</span>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+
+  <div class="bg-light">
+    <button mat-button class="px-2 py-2" style="width: 100%;" (click)="goToHouseHome()">
+      <div class="d-flex justify-content-between text-dark">
+        <div><span class="fa fa-flag"></span>&nbsp;&nbsp;热点资讯</div>
+        <div><span class="fa fa-angle-double-right"></span></div>
+      </div>
+    </button>
+    <div class="row p-2">
+      <div class="col-3 pr-0">
+        <img [src]="photo1" class="img img-fluid" style="width: 100%; height: 100%;">
+      </div>
+      <div class="col-9">
+        <div class="text-dark text-truncate"><span>调控要转向？网签量大涨？年底楼市那些事，擦亮眼睛看</span></div>
+        <div class="text-muted text-truncate small"><span>这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要</span></div>
+      </div>
+    </div>
+    <div class="row p-2">
+      <div class="col-3 pr-0">
+        <img [src]="photo2" class="img img-fluid" style="width: 100%; height: 100%;">
+      </div>
+      <div class="col-9">
+        <div class="text-dark text-truncate"><span>什么刺激了房价上涨预期？抢人政策，楼市打新...</span></div>
+        <div class="text-muted text-truncate small"><span>这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要</span></div>
+      </div>
+    </div>
+    <div class="row p-2">
+      <div class="col-3 pr-0">
+        <img [src]="photo3" class="img img-fluid" style="width: 100%; height: 100%;">
+      </div>
+      <div class="col-9">
+        <div class="text-dark text-truncate"><span>房企半年报密集发布“增收又增利”是主流</span></div>
+        <div class="text-muted text-truncate small"><span>这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要，这是简短摘要</span></div>
+      </div>
+    </div>
+  </div>
+
+
+</ion-content>
+
+
+
+
+
+

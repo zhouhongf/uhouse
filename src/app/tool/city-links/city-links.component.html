@@ -1,0 +1,27 @@
+<form [formGroup]="theForm">
+  <div class="row">
+    <mat-form-field class="col-md-3">
+      <mat-select placeholder="省份" formControlName="parent">
+        <mat-option *ngFor="let theData of parentsData" [value]="theData['name']" (click)="selectParent(theData['code'])">{{theData['name']}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-3">
+      <mat-select placeholder="城市" formControlName="person">
+        <mat-option *ngFor="let theData of peopleSelectedData" [value]="theData['name']" (click)="selectPerson(theData['code'])">{{theData['name']}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-3">
+      <mat-select placeholder="镇区" formControlName="child">
+        <mat-option *ngFor="let theData of childrenSelectedData" [value]="theData['name']" (click)="selectChild(theData['code'])">{{theData['name']}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="col-md-3">
+      <mat-select placeholder="街区" formControlName="grandChild">
+        <mat-option *ngFor="let theData of grandChildrenSelectedData" [value]="theData['name']" (click)="selectGrandChild();">{{theData['name']}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

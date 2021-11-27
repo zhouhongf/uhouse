@@ -1,0 +1,7 @@
+{
+  "name": "uhouse",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
